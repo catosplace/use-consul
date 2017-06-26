@@ -1,0 +1,24 @@
+# Specify a Consul version
+CONSUL_VERSION = ENV['CONSUL_VERSION']
+
+# Specify a custom Vagrant box
+CONSUL_BOX_NAME = ENV['CONSUL_BOX_NAME'] || "bento/ubuntu-16.04"
+
+# Vagrantfile API/syntax version
+# NB: Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.vm.box = CONSUL_BOX_NAME
+
+  config.vm.provision "shell",
+    path: "../install_consul.sh",
+    env: {'CONSUL_VERSION' => CONSUL_VERSION}
+
+  config.vm.define "consul" do |consul|
+    consul.vm.hostname = "consul"
+    consul.vm.network "private_network", ip: "172.20.20.10"
+  end
+
+end

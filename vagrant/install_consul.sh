@@ -1,12 +1,8 @@
-#! /bin/sh
-
-set -e
-
-export DEBIAN_FRONTEND=noninteractive
+#! /bin/sh -x
 
 echo "Installing dependencies ..."
 sudo apt-get update > /dev/null 
-sudo apt-get install -yq unzip curl jq
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y unzip curl jq
 
 echo "Determining Consul version to install ..."
 CHECKPOINT_URL="https://checkpoint-api.hashicorp.com/v1/check"

@@ -1,7 +1,7 @@
 # Consul using Vagrant
 This folder contains examples of [Consul][1] used in [Vagrant][2]
 
-* [Standalone Consul in Vagrant](standalone/README.md)
+* [Standalone Consul in Vagrant](standalone)
 
 ## Install Consul Script
 The [`install_consul.sh`](install_consul.sh) is used to install [Consul][1]

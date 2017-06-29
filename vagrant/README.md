@@ -23,6 +23,17 @@ into a base box.
 
 * Install Consul into VM using Ansible
 
+#### Notes
+
+[Telemetry](https://www.consul.io/docs/agent/telemetry.html)
+```
+$ ps -a
+$ kill -USR1 $consul_pid
+```
+Will output telemetry dump to the agent's `stderr`
+
+To enable the UI to be viewed need to set `-client=0.0.0.0`
+
 #### References
 
 [HashiCorp Consul Vagrant Cluster Demo](https://github.com/hashicorp/consul/tree/master/demo/vagrant-cluster)

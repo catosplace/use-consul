@@ -1,0 +1,28 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Specify a Consul version
+CONSUL_VERSION = ENV['CONSUL_VERSION']
+
+# Specify a custom Vagrant box
+MOLECULE_BOX_NAME = ENV['CONSUL_BOX_NAME'] || "bento/ubuntu-16.04"
+
+# Vagrantfile API/syntax version
+# NB: Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  config.vm.box = MOLECULE_BOX_NAME
+
+  config.vm.provision "shell",
+    path: "install_molecule.sh",
+    env: {'CONSUL_VERSION' => CONSUL_VERSION}
+
+  config.vm.synced_folder "role", "/home/vagrant/role"
+
+  config.vm.define "molecule" do |molecule|
+    molecule.vm.hostname = "molecule"
+  end
+
+end

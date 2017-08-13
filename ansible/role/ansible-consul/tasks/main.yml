@@ -1,0 +1,26 @@
+---
+# tasks file for ansible-consul
+
+- name: install unzip
+  package:
+    name: "{{ item }}"
+  with_items:
+    - unzip
+    - ca-certificates
+
+- name: update ca certs
+  command: update-ca-certificates
+  changed_when: False
+
+- name: Extract consul
+  unarchive:
+    src: "{{ consul_download_url }}"
+    dest: "{{ consul_bin_dir }}"
+    remote_src: true
+
+- name: Render Systemd Config
+  template:
+    src: consul.systemd.j2
+    dest: /etc/systemd/system/consul.service
+    mode: 0644
+  notify: restart consul

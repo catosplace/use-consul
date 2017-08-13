@@ -19,6 +19,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     path: "install_molecule.sh",
     env: {'CONSUL_VERSION' => CONSUL_VERSION}
 
+  config.vm.provision "shell",
+    path: "install_docker.sh"
+
   config.vm.synced_folder "role", "/home/vagrant/role"
 
   config.vm.define "molecule" do |molecule|
